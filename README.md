@@ -1,4 +1,4 @@
-# MMM-OctoMon
+# MMM-OctoGo
 
 "Octopus Monitor", displays energy usage history for your Octopus Energy account. Unofficial!
 
@@ -13,25 +13,33 @@
 
 ## Installation
 
-1. Clone this repo into `~/MagicMirror/modules` directory, to create `~/MagicMirror/modules/MMM-OctoMon`.
+1. Clone this repo into `~/MagicMirror/modules` directory, to create `~/MagicMirror/modules/MMM-OctoGo`.
 
 ```
 	cd ~/MagicMirror/modules
-	git clone https://github.com/christopherpthomas/MMM-OctoMon.git
+	git clone https://github.com/TouaregWarrior/MMM-OctoGo
 ```
 
-1. Add OctoMon configuration into `~/MagicMirror/config/config.js`:
+1. Add OctoGo configuration into `~/MagicMirror/config/config.js`:
 
 ```
 	{
-		module: 'MMM-OctoMon',
+		module: 'MMM-OctoGo',
 		position: 'bottom_right',
-		header: '<img src="modules/MMM-OctoMon/public/octobw.jpg" style="width:20px;vertical-align:bottom;"/> Octopus Energy',
+		header: '<img src="modules/MMM-OctoGo/public/octobw.jpg" style="width:20px;vertical-align:bottom;"/> Octopus Energy',
 		config: {
-				elecApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/[ELECTRIC-MPAN]/meters/[METER_SERIAL]/consumption/?group_by=day',
+				elecApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/[ELECTRIC-MPAN]/meters/[METER_SERIAL]/consumption/',
+				elecExpApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/[ELECTRIC-MPAN]/meters/[METER_SERIAL]/consumption/?group_by=day',
 				gasApiUrl: 'https://api.octopus.energy/v1/gas-meter-points/[GAS-MPRN]/meters/[GAS-SERIAL]/consumption/?group_by=day',
 				api_key: '[YOUR-API-KEY]',
 				displayDays: 7,
+
+                vatRate: 0.05,
+
+                cheapStartTime: "00:30",
+                cheapEndTime: "05:30",
+                cheapElecRate: 0.0850,
+
 				elecMedium: 10,
 				elecHigh: 20,
 				elecCostKWH: 0.1372,
@@ -59,6 +67,10 @@ The following config.js properties can be configured.
 | --- | --- | --- |
 | 'header' | 'octobw.jpg' | other graphics available in the 'public' directory, or just remove it |
 | 'displayDays' | '7' | The number of days of historical energy usage to display |
+| 'vatRate' | '0.05' | Goverment fuel VAT rate |
+| 'cheapStartTime' | ' "00:30"' | Cheap Electric rate start time |
+| 'cheapEndTime' | ' "05:30"' |  Cheap Electric rate end time  |
+| 'cheapElecRate' | ' 0.0850' | Cost per kWh in pounds |
 | 'elecMedium' | '10' | kWh values over this amount will be displayed in Orange |
 | 'elecHigh' | '20' | kWh values over this amount will be displayed in Red |
 | 'elecCostKWH' | '0.1372' | cost per kWh in pounds, or zero to hide display |
@@ -75,11 +87,8 @@ The following config.js properties can be configured.
 
 ## Additional customisation
 
-See comments in the main source code for a couple of other things that could be changed.
 
 ## Note
-
-Cost calcuations are based on fixed daily rates. Octopus have tiered and variable pricing models (Octopus Go and Octopus Agile) which are not currently implemented. Turn the cost display off by setting the elecCostKWH or gasCostKWH to zero.
 
 ## Disclaimer
 
