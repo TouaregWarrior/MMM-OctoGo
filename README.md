@@ -1,6 +1,6 @@
 # MMM-OctoGo
 
-"Octopus Monitor", displays energy usage history for your Octopus Energy account. Unofficial!
+"Octopus Go Monitor", displays energy usage history for your Octopus Energy account. Unofficial!
 
 ## Example
 
@@ -44,10 +44,12 @@
 			elecHigh: 20,
 			elecCostKWH: 0.1372,
 			elecCostSC: 0.25,
+
 			gasMedium: 5,
 			gasHigh: 6,
 			gasCostKWH: 0.0331,
 			gasCostSC: 0.168,				
+
 			decimalPlaces: 1,
 			showUpdateTime: true,
 			updateInterval: 60000*60,
@@ -87,9 +89,9 @@ The following config.js properties can be configured.
 
 ## Additional customisation
 
-
 ## Note
 
 ## Disclaimer
 
-This module has been hacked together very quickly! I've taken a bunch of shortcuts, such as inserting HTML and CSS inline styles, when there's probably a more elegant way to accomplish things. Recommendations for changes welcome! It's completely unofficial, but it is using the Octopus Energy (https://developer.octopus.energy) publicly available customer API, so as far as I'm concerned, that's permission enough. Supplied AS-IS. No warranties expressed or implied. Blah bla-blah. It works on my machine!
+It's completely unofficial, but it is using the Octopus Energy (https://developer.octopus.energy) publicly available customer API. Supplied AS-IS. No warranties expressed or implied. 
+It works on my machine!
