@@ -2,7 +2,7 @@
  * Module: MMM-OctoGo
  *
  * Modified for Octopus Go Tariff by Richard Pettigrew
- * Based on the original MMM-OctoMon by Chris Thomas
+ * Based on MMM-OctoMon by Chris Thomas
  * MIT Licensed.
  */
 
@@ -50,6 +50,7 @@ Module.register("MMM-OctoGo", {
 			this.getElecData(2);
 			this.getElecExpData(2);
 			this.getGasData(2);
+			this.updateDom(this.config.animationSpeed);
 		}, this.config.updateInterval);
 	},
 
@@ -61,28 +62,53 @@ Module.register("MMM-OctoGo", {
 	},
 
 	getElecData: function (retries) {
-		var self = this;
-		var hash = btoa(this.config.api_key + ":");
-		if (this.config.elecApiUrl) {
-			var request = new XMLHttpRequest();
-			request.open("GET", this.config.elecApiUrl, true);
+		const self = this;
+		const hash = btoa(this.config.api_key + ":");
+
+		if (!this.config.elecApiUrl) return;
+
+		const today = new Date();
+		const fromDate = new Date(today);
+		fromDate.setDate(fromDate.getDate() - this.config.displayDays + 1);
+
+		const period_from = fromDate.toISOString().split("T")[0];
+		const period_to = today.toISOString().split("T")[0];
+
+		let fullUrl = `${this.config.elecApiUrl}?period_from=${period_from}&period_to=${period_to}`;
+		let allResults = [];
+
+		function fetchPage(url, attempt = retries) {
+			const request = new XMLHttpRequest();
+			request.open("GET", url, true);
 			request.setRequestHeader("Authorization", "Basic " + hash);
 			request.onreadystatechange = function () {
-				if (this.readyState === 4 && this.status === 200) {
-					self.processElecData(JSON.parse(this.response));
-				} else if (retries > 0) {
-					setTimeout(() => self.getElecData(retries - 1), self.config.retryDelay);
+				if (this.readyState === 4) {
+					if (this.status === 200) {
+						const response = JSON.parse(this.responseText);
+						allResults = allResults.concat(response.results);
+						if (response.next) {
+							fetchPage(response.next);
+						} else {
+							self.elecDataRequest = { results: allResults };
+							self.elecLoaded = true;
+							self.checkIfAllLoaded();
+						}
+					} else if (attempt > 0) {
+						setTimeout(() => fetchPage(url, attempt - 1), self.config.retryDelay);
+					}
 				}
 			};
 			request.send();
 		}
+
+		fetchPage(fullUrl);
 	},
 
 	getElecExpData: function (retries) {
-		var self = this;
-		var hash = btoa(this.config.api_key + ":");
+		const self = this;
+		const hash = btoa(this.config.api_key + ":");
 		if (this.config.elecExpApiUrl) {
-			var request = new XMLHttpRequest();
+			const request = new XMLHttpRequest();
 			request.open("GET", this.config.elecExpApiUrl, true);
 			request.setRequestHeader("Authorization", "Basic " + hash);
 			request.onreadystatechange = function () {
@@ -97,10 +123,10 @@ Module.register("MMM-OctoGo", {
 	},
 
 	getGasData: function (retries) {
-		var self = this;
-		var hash = btoa(this.config.api_key + ":");
+		const self = this;
+		const hash = btoa(this.config.api_key + ":");
 		if (this.config.gasApiUrl) {
-			var request = new XMLHttpRequest();
+			const request = new XMLHttpRequest();
 			request.open("GET", this.config.gasApiUrl, true);
 			request.setRequestHeader("Authorization", "Basic " + hash);
 			request.onreadystatechange = function () {
@@ -152,10 +178,10 @@ Module.register("MMM-OctoGo", {
 					}
 				});
 			}
-			let cost = "£" + this.config.elecCostSC.toFixed(2);
+			let cost = "&pound;" + this.config.elecCostSC.toFixed(2);
 			if (total > 0) {
 				cost = cheap * this.config.cheapElecRate + normal * this.config.elecCostKWH + this.config.elecCostSC;
-				cost = "£" + cost.toFixed(2);
+				cost = "&pound;" + cost.toFixed(2);
 			}
 			let elecColor = "color:white";
 			if (total >= this.config.elecMedium) elecColor = "color:orange";
@@ -176,7 +202,7 @@ Module.register("MMM-OctoGo", {
 			if (totalExp >= this.config.elecExpMedium) expColor = "color:orange";
 			if (totalExp >= this.config.elecExpHigh) expColor = "color:green";
 			const exportCost = totalExp * this.config.elecExpCostKWH + this.config.elecExpCostSC;
-			const exportVal = `<span style=\"${expColor}\">${totalExp.toFixed(this.config.decimalPlaces)} kWh £${exportCost.toFixed(2)}</span>`;
+			const exportVal = `<span style=\"${expColor}\">${totalExp.toFixed(this.config.decimalPlaces)} kWh &pound;${exportCost.toFixed(2)}</span>`;
 			row.innerHTML += `<td style=\"text-align:right\">${exportVal}</td>`;
 
 			// Gas
@@ -195,7 +221,7 @@ Module.register("MMM-OctoGo", {
 			if (totalGasKWh >= this.config.gasMedium) gasColor = "color:orange";
 			if (totalGasKWh >= this.config.gasHigh) gasColor = "color:red";
 			const gasCost = (totalGasKWh * this.config.gasCostKWH + this.config.gasCostSC) * (1 + this.config.vatRate);
-			const gasVal = `<span style=\"${gasColor}\">${totalGasKWh.toFixed(this.config.decimalPlaces)} kWh £${gasCost.toFixed(2)}</span>`;
+			const gasVal = `<span style=\"${gasColor}\">${totalGasKWh.toFixed(this.config.decimalPlaces)} kWh &pound;${gasCost.toFixed(2)}</span>`;
 			row.innerHTML += `<td style=\"text-align:right\">${gasVal}</td>`;
 
 			table.appendChild(row);
@@ -206,6 +232,11 @@ Module.register("MMM-OctoGo", {
 		return wrapper;
 	},
 
+	getHeader() {
+		if (this.config.showUpdateTime) return this.data.header + " " + new Date().toLocaleTimeString();
+		return this.data.header;
+	},
+
 	_isInCheapPeriod(dateObj) {
 		const mins = dateObj.getHours() * 60 + dateObj.getMinutes();
 		const [startH, startM] = this.config.cheapStartTime.split(":").map(Number);
@@ -214,11 +245,6 @@ Module.register("MMM-OctoGo", {
 		const end = endH * 60 + endM;
 		if (start < end) return mins >= start && mins < end;
 		else return mins >= start || mins < end;
-	},
-
-	getHeader() {
-		if (this.config.showUpdateTime) return this.data.header + " " + new Date().toLocaleTimeString();
-		return this.data.header;
 	},
 
 	processElecData(data) {

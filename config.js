@@ -144,17 +144,17 @@ let config = {
 			position: 'top_center',
 			header: '<img src="modules/MMM-OctoGo/public/octobw.jpg" style="width:20px;vertical-align:bottom;"/> Octopus Energy',
 			config: {
-				elecApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/2332357784210/meters/21E5218111/consumption/',
-				elecExpApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/2394300187578/meters/21E5218111/consumption/?group_by=day',
-				gasApiUrl: 'https://api.octopus.energy/v1/gas-meter-points/2143274303/meters/E6E01890562021/consumption/?group_by=day',
-				api_key: 'sk_live_T0mu7YzR4UaYfNN53vZVQ9L9',
+				elecApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/[ELECTRIC-MPAN]/meters/[METER_SERIAL]/consumption/',
+				elecExpApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/[ELECTRIC-MPAN]/meters/[METER_SERIAL]/consumption/?group_by=day',
+				gasApiUrl: 'https://api.octopus.energy/v1/gas-meter-points/[GAS-MPRN]/meters/[GAS-SERIAL]/consumption/?group_by=day',
+				api_key: 'YOUR-API-KEY',
 				displayDays: 7,
 
-                                vatRate: 0.05,
+                vatRate: 0.05,
 
-                                cheapStartTime: "00:30",
-                                cheapEndTime: "05:30",
-                                cheapElecRate: 0.0850,
+                cheapStartTime: "00:30",
+                cheapEndTime: "05:30",
+                cheapElecRate: 0.0850,
 
 				elecMedium: 10,
 				elecHigh: 13,
