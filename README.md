@@ -1,6 +1,11 @@
 # MMM-OctoGo
 
-"Octopus Go Monitor", displays energy usage history for your Octopus Energy account. Unofficial!
+"Octopus Go Monitor", displays:
+'Octopus Go' Electric Import and daily charge - supports the overnight cheap rate window and rest of the day at standard rate - Shows kWh and daily £ (inc. Standing Charge)
+Total 'Solar Export' in KwH and daily £ earned.
+Octopus Gas Import - Fixed daily rate, shows kWh and daily £ (inc. Standing Charge)
+
+Uses the published API calls from Octopus Agile API. 
 
 ## Example
 
