@@ -233,7 +233,7 @@ Module.register("MMM-OctoGo", {
 	},
 
 	getHeader() {
-		if (this.config.showUpdateTime) return this.data.header + " " + new Date().toLocaleTimeString();
+		if (this.config.showUpdateTime) return this.data.header + " (" + new Date().toLocaleTimeString() + ")";
 		return this.data.header;
 	},
 

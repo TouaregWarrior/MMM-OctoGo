@@ -72,7 +72,7 @@ let config = {
                                 highColor: "red",
 				lowColor: "green",
 				otherColor: "yellow",
-				label: "<i class='fab fa-raspberry-pi'>",
+				//label: "<i class='fab fa-raspberry-pi'>",
 			},
 		},
 
@@ -102,7 +102,7 @@ let config = {
 		{
 		module: "MMM-OpenmapWeather",
 			position: "top_left",	// This can be any of the regions. Best results in left or right regions.
-			header: "Current Weather", //Location is the default value if header is empty or not defined.
+			header: "Current Weather - ", //Location is the default value if header is empty or not defined.
 			config: {
 				// See 'Configuration options' for more information.
 				location: "Doncaster",
@@ -120,6 +120,7 @@ let config = {
 		{
     			module: "MMM-MortgageCountdown",
     			position: "top_right",  // Choose your preferred position
+                        header: "Mortgage Process",
     			config: {
         			lastPaymentDate: "2033-01-01",  // Your last mortgage payment date
         			nextSwitchDate: "2027-01-01",    // Set your next switch date
@@ -130,11 +131,13 @@ let config = {
 		{
     			module: "MMM-HolidayCountdown",
     			position: "top_right",  // Or wherever you'd like it displayed
-    			config: {
+    			header: "Trip Countdown",
+                        config: {
+				//header: "Trip Countdown",
         			trips: [
-					{ destination: "Mighty Coast Hike", date: "2025-09-14" },
-					{ destination: "Galactic Gathering", date: "2025-06-28" },
-					{ destination: "Agadir", date: "2026-02-13" },
+					{ destination: "Amsterdam", date: "2025-10-27" },
+					{ destination: "Agadir - Valeria Jardins", date: "2026-02-13" },
+					{ destination: "Lake District", date: "2027-02-16" },
         			]
     			}
 		},
@@ -142,34 +145,34 @@ let config = {
 		{
 			module: 'MMM-OctoGo',
 			position: 'top_center',
-			header: '<img src="modules/MMM-OctoGo/public/octobw.jpg" style="width:20px;vertical-align:bottom;"/> Octopus Energy',
+			header: 'Octopus Energy',
 			config: {
-				elecApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/[ELECTRIC-MPAN]/meters/[METER_SERIAL]/consumption/',
-				elecExpApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/[ELECTRIC-MPAN]/meters/[METER_SERIAL]/consumption/?group_by=day',
-				gasApiUrl: 'https://api.octopus.energy/v1/gas-meter-points/[GAS-MPRN]/meters/[GAS-SERIAL]/consumption/?group_by=day',
-				api_key: 'YOUR-API-KEY',
+				elecApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/2332357784210/meters/21E5218111/consumption/',
+				elecExpApiUrl: 'https://api.octopus.energy/v1/electricity-meter-points/2394300187578/meters/21E5218111/consumption/?group_by=day',
+				gasApiUrl: 'https://api.octopus.energy/v1/gas-meter-points/2143274303/meters/E6E01890562021/consumption/?group_by=day',
+				api_key: 'sk_live_T0mu7YzR4UaYfNN53vZVQ9L9',
 				displayDays: 7,
 
-                vatRate: 0.05,
+                                vatRate: 0.00,
 
-                cheapStartTime: "00:30",
-                cheapEndTime: "05:30",
-                cheapElecRate: 0.0850,
+                                cheapStartTime: "00:30",
+                                cheapEndTime: "05:30",
+                                cheapElecRate: 0.085,
 
-				elecMedium: 10,
-				elecHigh: 13,
+				elecMedium: 7.42,
+				elecHigh: 11.119,
 				elecCostKWH: 0.2698,
 				elecCostSC: 0.5492,
 
-				elecExpMedium: 3.6613,
+				elecExpMedium: 3.661,
 				elecExpHigh: 6,
 				elecExpCostKWH: 0.15,
 				elecExpCostSC: 0,
 
-				gasMedium: 5,
-				gasHigh: 10,
-				gasCostKWH: 0.0608,
-				gasCostSC: 0.2949,
+				gasMedium: 32.27,
+				gasHigh: 49.91,
+				gasCostKWH: 0.0601,
+				gasCostSC: 0.2893,
 
 				decimalPlaces: 2,
 				showUpdateTime: true,
@@ -198,11 +201,14 @@ let config = {
 				fade: false,
 				customEvents: [
 					{keyword: 'Off School', symbol: 'exclamation', color: 'Red'},
-                                        {keyword: 'BBQ', symbol: 'burger', color: 'Red'},
+                                        {keyword: 'B14KYP', symbol: 'car-side', color: 'Blue'},
+					{keyword: 'BBQ', symbol: 'burger', color: 'Red'},
 					{keyword: 'Birthday', symbol: 'cake-candles', color: 'Gold'},
-					{keyword: 'Bletchley', symbol: 'user-secret', color: 'Yellow'},
+					{keyword: 'Blood', symbol: 'syringe', color: 'Red'},
 					{keyword: 'Book Alex School Dinners', symbol: 'exclamation', color: 'Red'},
 					{keyword: 'Chimney', symbol: 'house-chimney', color: 'Red'},
+					{keyword: 'Craft', symbol: 'store', color: 'Red'},
+					{keyword: 'Curry', symbol: 'bowl-rice', color: 'Red'},	
 					{keyword: 'Dentist', symbol: 'teeth-open', color: 'Red'},
 					{keyword: '(DW)', symbol: 'person-hiking', color: 'Yellow'},
 					{keyword: '(DR)', symbol: 'person-hiking', color: 'Yellow'},
@@ -218,10 +224,7 @@ let config = {
 					{keyword: 'Photo', symbol: 'camera', color: 'Red'},
 					{keyword: 'School Meeting', symbol: 'exclamation', color: 'Red'},
 					{keyword: 'School Dinners', symbol: 'burger', color: 'Red'},
-                                        {keyword: 'TALP', symbol: 'gamepad', color: 'Red'},
-					{keyword: 'Spy', symbol: 'user-secret', color: 'Yellow'},
 					{keyword: 'V22ARP', symbol: 'car-side', color: 'Blue'},
-					{keyword: 'Y3P', symbol: 'person-hiking', color: 'Yellow'},
 				],
 			}
 		},
@@ -248,14 +251,16 @@ let config = {
                                         {keyword: 'BBQ', symbol: 'burger', color: 'Red'},
 					{keyword: 'Birthday', symbol: 'cake-candles', color: 'Gold'},
 					{keyword: 'Black Bin', symbol: 'trash', color: 'Grey'},
+					{keyword: 'Blood', symbol: 'syringe', color: 'Red'},
 					{keyword: 'Blue Bin', symbol: 'trash', color: 'Blue'},
 					{keyword: 'Book Alex School Dinners', symbol: 'exclamation', color: 'Red'},
 					{keyword: 'Child Benefit', symbol: 'sterling-sign', color: 'Green'},
 					{keyword: 'Chimney', symbol: 'house-chimney', color: 'Red'},
+					{keyword: 'Craft', symbol: 'store', color: 'Red'},
+					{keyword: 'Curry', symbol: 'bowl-rice', color: 'Red'},
 					{keyword: 'Dentist', symbol: 'teeth-open', color: 'Red'},
 					{keyword: 'Depo', symbol: 'syringe', color: 'Red'},
 					{keyword: 'Enigma', symbol: 'fire', color: 'Red'},
-					{keyword: 'Exam', color: 'Red'},
 					{keyword: 'Holiday', symbol: 'plane', color: 'Yellow'},
 					{keyword: 'La Fiesta', symbol: 'martini-glass-citrus', color: 'Green'},
                                         {keyword: 'Makerspace', symbol: 'screwdriver-wrench', color: 'Yellow'},
@@ -267,9 +272,6 @@ let config = {
 					{keyword: 'School Meeting', symbol: 'exclamation', color: 'Red'},
 					{keyword: 'University', symbol: 'graduation-cap', color: 'Yellow'},
 					{keyword: 'Work', symbol: 'user-nurse', color: 'Green'},
-                                        {keyword: 'Nights', symbol: 'user-nurse', color: 'Green'},
-                                        {keyword: 'Long', symbol: 'user-nurse', color: 'Green'},
-
 				],
 			}
 		},
@@ -298,13 +300,12 @@ let config = {
 					{keyword: 'Breakfast', symbol: 'bacon', color: 'Green'},
 					{keyword: 'Burger', symbol: 'burger', color: 'Green'},
 					{keyword: 'Chicken', symbol: 'drumstick-bite', color: 'Green'},
-					{keyword: 'Cub', symbol: 'child-reaching', color: 'Yellow'},
+					{keyword: 'Scout', symbol: 'child-reaching', color: 'Yellow'},
 					{keyword: 'Dentist', symbol: 'teeth-open', color: 'Red'},
 					{keyword: 'Fish', symbol: 'fish', color: 'Green'},
 					{keyword: 'Gammon', symbol: 'piggy-bank', color: 'Green'},
 					{keyword: 'Holiday', symbol: 'plane', color: 'Yellow'},
 					{keyword: 'Hotdog', symbol: 'hotdog', color: 'Green'},
-					{keyword: 'Margarita', symbol: 'pizza-slice', color: 'Green'},
 					{keyword: 'Packed Lunch', symbol: 'bread-slice', color: 'Red'},
 					{keyword: 'Parents Evening', symbol: 'hands-holding-child', color: 'Red'},
 					{keyword: 'Philip', symbol: 'person', color: 'Yellow'},
@@ -318,7 +319,8 @@ let config = {
 					{keyword: 'Trip', symbol: 'plane', color: 'Yellow'},
 					{keyword: 'Turkey', symbol: 'drumstick-bite', color: 'Green'},
 					{keyword: 'Toad', symbol: 'frog', color: 'Green'},
-					{keyword: 'Vegan', symbol: 'leaf', color: 'Green'},									],
+					{keyword: 'Vegan', symbol: 'leaf', color: 'Green'},
+					{keyword: 'Walking', symbol: 'person-hiking', color: 'Red'},									],
 			}
 		}
 	]
