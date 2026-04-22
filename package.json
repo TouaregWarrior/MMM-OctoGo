@@ -1,0 +1,27 @@
+{
+	"name": "MMM-OctoGo",
+	"version": "1.0.0",
+	"description": "A simple MagicMirror² module to display Octopus energy usage.",
+	"main": "MMM-OctoGo.js",
+	"keywords": [
+	    "Octopus",
+	    "Energy"
+	],
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/TouaregWarrior/MMM-OctoGo"
+	},
+	"author": "TouaregWarrior",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/TouaregWarrior/MMM-OctoGo/issues"
+	},
+	"homepage": "https://github.com/TouaregWarrior/MMM-OctoGo",
+	"dependencies": {
+		"request": "^2.78.0"
+	},
+	"devDependencies": {}
+}
