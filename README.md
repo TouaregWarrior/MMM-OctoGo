@@ -13,7 +13,6 @@ Uses the published API calls from Octopus Agile API.
 
 ## Dependencies
 
-* An installation of [MagicMirror<sup>2</sup>](https://github.com/MichMich/MagicMirror)
 * An electricity and/or gas supply account with Octopus Energy and a smart electricity meter
 
 ## Installation
@@ -95,6 +94,16 @@ The following config.js properties can be configured.
 ## Additional customisation
 
 ## Note
+
+## Update
+
+Go to the module’s directory and pull the latest version from GitHub:
+
+```bash
+cd ~/MagicMirror/modules/MMM-OctoGo
+git pull
+```
+
 
 ## Disclaimer
 
